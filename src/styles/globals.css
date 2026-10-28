@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%; /* #101827 Midnight Navy */
+    --foreground: 40 33% 93%; /* #F4F0E8 Warm Ivory */
+
+    --card: 218 37% 15%; /* #182234 Elevated Surface */
+    --card-foreground: 40 33% 93%;
+
+    --popover: 218 37% 15%;
+    --popover-foreground: 40 33% 93%;
+
+    --primary: 39 53% 65%; /* #D5B477 Geometric Gold */
+    --primary-foreground: 222 47% 11%;
+    --primary-hover: 39 48% 57%; /* #C4A261 */
+
+    --secondary: 217 35% 22%; /* #23324A */
+    --secondary-foreground: 40 33% 93%;
+
+    --muted: 217 35% 18%;
+    --muted-foreground: 216 16% 67%; /* #9DA8B9 */
+
+    --accent: 39 53% 65%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 40 33% 93%;
+
+    --border: 217 35% 22%; /* #23324A */
+    --input: 217 35% 22%;
+    --ring: 39 53% 65%;
+
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: 40 33% 96%; /* #F8F5EE Light Warm Ivory */
+    --foreground: 222 47% 11%; /* #101827 Dark Navy Text */
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 39 53% 50%; /* Deeper gold for accessible light contrast */
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 39 53% 42%;
+
+    --secondary: 40 20% 90%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 40 20% 92%;
+    --muted-foreground: 216 16% 40%;
+
+    --accent: 39 53% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 85%;
+    --input: 40 20% 85%;
+    --ring: 39 53% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-zellij-gold selection:text-zellij-navy;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Zellij Geometric Motif Background */
+.bg-zellij-grid {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(213, 180, 119, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(213, 180, 119, 0.05) 1px, transparent 1px);
+}
+
+.bg-zellij-radial {
+  background: radial-gradient(circle at 50% 20%, rgba(213, 180, 119, 0.08) 0%, transparent 70%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #101827;
+}
+::-webkit-scrollbar-thumb {
+  background: #23324A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D5B477;
+}
