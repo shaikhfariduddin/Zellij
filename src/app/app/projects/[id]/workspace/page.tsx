@@ -37,6 +37,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { getProjectById, saveProject } from "@/lib/storage";
 import { ZellijProject, ScreenBlueprint, WorkflowBlueprint } from "@/types/blueprint";
+import { exportToMarkdown, exportToPrisma, exportToOpenAPI, exportToJSON } from "@/lib/export";
 
 export default function MasterWorkspaceStudio() {
   const params = useParams();
@@ -704,48 +705,77 @@ export default function MasterWorkspaceStudio() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {[
-                  {
-                    title: "Executive PDF Document",
-                    desc: "Formatted whitepaper with cover page, PRD, wireframe screenshots, and workflow diagrams.",
-                    badge: "STAKEHOLDER READY",
-                    action: "Download PDF",
-                  },
-                  {
-                    title: "Markdown PRD Folder (Zip)",
-                    desc: "Full modular directory of GitHub-ready Markdown documents and diagrams.",
-                    badge: "DEVELOPER PRD",
-                    action: "Download Markdown Zip",
-                  },
-                  {
-                    title: "PostgreSQL & Prisma Schema",
-                    desc: "schema.prisma model file with foreign keys, indexes, and relations ready for migrations.",
-                    badge: "BACKEND SCAFFOLD",
-                    action: "Download schema.prisma",
-                  },
-                  {
-                    title: "OpenAPI 3.1 JSON Contract",
-                    desc: "Standard machine-readable API specification for mock servers and frontend codegen.",
-                    badge: "API CONTRACT",
-                    action: "Download openapi.json",
-                  },
-                ].map((pkg, idx) => (
-                  <Card key={idx} className="p-5 border-zellij-border bg-zellij-surface/70 space-y-4 flex flex-col justify-between">
-                    <div className="space-y-2">
-                      <Badge variant="gold" className="text-[9px] font-mono">{pkg.badge}</Badge>
-                      <h3 className="font-bold text-base text-zellij-ivory">{pkg.title}</h3>
-                      <p className="text-xs text-zellij-mutedText leading-relaxed">{pkg.desc}</p>
-                    </div>
-                    <Button 
-                      variant="secondary" 
-                      className="w-full text-xs font-semibold hover:border-zellij-gold"
-                      onClick={() => alert(`Generated ${pkg.title} for ${project.name}!`)}
-                    >
-                      <Download className="w-3.5 h-3.5 mr-1.5" />
-                      {pkg.action}
-                    </Button>
-                  </Card>
-                ))}
+                <Card className="p-5 border-zellij-border bg-zellij-surface/70 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <Badge variant="gold" className="text-[9px] font-mono">DEVELOPER PRD</Badge>
+                    <h3 className="font-bold text-base text-zellij-ivory">Markdown Product Requirements (.md)</h3>
+                    <p className="text-xs text-zellij-mutedText leading-relaxed">
+                      Complete formatted specification document with user stories, acceptance criteria, screen components, and test matrix.
+                    </p>
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full text-xs font-semibold hover:border-zellij-gold"
+                    onClick={() => exportToMarkdown(project)}
+                  >
+                    <Download className="w-3.5 h-3.5 mr-1.5" />
+                    Download Markdown PRD
+                  </Button>
+                </Card>
+
+                <Card className="p-5 border-zellij-border bg-zellij-surface/70 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <Badge variant="gold" className="text-[9px] font-mono">BACKEND SCAFFOLD</Badge>
+                    <h3 className="font-bold text-base text-zellij-ivory">PostgreSQL Prisma Schema (.prisma)</h3>
+                    <p className="text-xs text-zellij-mutedText leading-relaxed">
+                      Ready-to-migrate database models with primary keys, indexes, foreign keys, and relations.
+                    </p>
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full text-xs font-semibold hover:border-zellij-gold"
+                    onClick={() => exportToPrisma(project)}
+                  >
+                    <Download className="w-3.5 h-3.5 mr-1.5" />
+                    Download schema.prisma
+                  </Button>
+                </Card>
+
+                <Card className="p-5 border-zellij-border bg-zellij-surface/70 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <Badge variant="gold" className="text-[9px] font-mono">API CONTRACT</Badge>
+                    <h3 className="font-bold text-base text-zellij-ivory">OpenAPI 3.1 JSON Specification</h3>
+                    <p className="text-xs text-zellij-mutedText leading-relaxed">
+                      Industry standard contract detailing routes, methods, authentication policies, and response schemas.
+                    </p>
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full text-xs font-semibold hover:border-zellij-gold"
+                    onClick={() => exportToOpenAPI(project)}
+                  >
+                    <Download className="w-3.5 h-3.5 mr-1.5" />
+                    Download openapi.json
+                  </Button>
+                </Card>
+
+                <Card className="p-5 border-zellij-border bg-zellij-surface/70 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <Badge variant="gold" className="text-[9px] font-mono">GRAPH ARCHIVE</Badge>
+                    <h3 className="font-bold text-base text-zellij-ivory">Complete Structured Graph (JSON)</h3>
+                    <p className="text-xs text-zellij-mutedText leading-relaxed">
+                      Full raw JSON dump containing all 5 modules and bidirectional artifact links for programmatic ingestion.
+                    </p>
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    className="w-full text-xs font-semibold hover:border-zellij-gold"
+                    onClick={() => exportToJSON(project)}
+                  >
+                    <Download className="w-3.5 h-3.5 mr-1.5" />
+                    Download blueprint.json
+                  </Button>
+                </Card>
               </div>
             </div>
           )}
